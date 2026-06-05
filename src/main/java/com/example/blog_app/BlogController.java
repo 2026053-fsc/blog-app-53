@@ -8,9 +8,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class BlogController {
-    @GetMapping("/blog")
-    public String blog() {
-        return "blog";
-    }
+   public class BlogController {
+   private final BlogRepository blogRepository;
+
+   public BlogRepository(BlogRepository blogRepository){
+    this.blogRepository = blogRepository;
+   }
+
+   @GetMapping("/blogs")
+   public String blogs(Model model){
+    model.addAttribute("blogs",blogsRepository.fimdAll());
+    return "blogs";
+   }
+   }
     
 }
+ // @GetMapping("/blogs")
+    // public String blog() {
+    //     return "blogs";
+    // }
