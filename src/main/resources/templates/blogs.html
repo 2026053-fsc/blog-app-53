@@ -1,27 +1,39 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Spring</title>
+    <div class="submit">
+        <p>Spring</p>
+        <a href="/blogs/new">投稿</a>
+    </div>
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="/blogs">ホーム</a></li>
-            <li><a href="/new">新規作成</a></li>
-            <li><a href="/blogs">Blog</a></li>
-        </ul>
-    </nav>
-    <h1>Blog</h1>
-    <li>
-        <p href="/article"></p>
-        <p href="/article"></p>
+    <div class="flex">
+    <header class="header-wrapper">
+            <p><a href="/blogs">ホーム</a></p>
+            <p><a href="/blogs/1">プロフィール</a></p>
+            <!-- <li><a href="/new">新規作成</a></li>
+            <li><a href="/blogs">Blog</a></li> -->
+    </header>
 
+<div class="blog">
+    <h1>Blog</h1>
+    <li th:each="blog : ${blogs}">
+        <div class="simple-box">
+            <p><a th:href="@{/blogs/{id}(id=${blog.id})}" th:text="${blog.title}"></a></p>
+            <!-- <h1 th:text="${blog.title}"></h1> -->
+            <p th:text="${blog.notes}">鈴東礼杏です。鹿児島出身です。</p>
+        </div>
 
     </li>
+</div>
+</div>
+
 </body>
 
 </html>

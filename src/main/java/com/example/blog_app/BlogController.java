@@ -1,29 +1,63 @@
 package com.example.blog_app;
 
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BlogController {
-   public class BlogController {
-   private final BlogRepository blogRepository;
+    private final BlogService blogService;
 
-   public BlogRepository(BlogRepository blogRepository){
-    this.blogRepository = blogRepository;
-   }
+    public BlogController(BlogService blogService) {
+        this.blogService = blogService;
+    }
 
-   @GetMapping("/blogs")
-   public String blogs(Model model){
-    model.addAttribute("blogs",blogsRepository.fimdAll());
-    return "blogs";
-   }
-   }
-    
-}
- // @GetMapping("/blogs")
-    // public String blog() {
-    //     return "blogs";
+    @GetMapping("/blogs")
+    public String blogs(Model model) {
+        model.addAttribute("blogs", blogService.findAll());
+        return "blogs";
+    }
+
+    @GetMapping("/blogs/new")
+    public String blogs() {
+        // model.addAttribute("blogs",blogService.findAll());
+        return "blogs/new";
+    }
+
+
+
+    @GetMapping("/blogs/{id}")
+    public String detail(@PathVariable Long id, Model model) {
+        Optional<Blog> blogOpt = blogService.findById(id);
+        if (blogOpt.isEmpty()) {
+            return "redirect:/blogs";
+        }
+        model.addAttribute("blog", blogOpt.get());
+        return "blogs/detail";
+    }
+
+    // @GetMapping("/blogs/article")
+    // public String blogs(){
+    // // model.addAttribute("blogs",blogService.findAll());
+    // return "blogs/article";
     // }
+
+    @PostMapping("/blogs")
+    public String create(@ModelAttribute BlogForm form) {
+        blogService.register(form);
+        return "redirect:/blogs";
+    }
+
+}
+
+// @GetMapping("/blogs")
+// public String blog() {
+// return "blogs";
+// }

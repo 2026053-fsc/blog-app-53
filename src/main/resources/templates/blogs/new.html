@@ -1,22 +1,37 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
+    <title>Spring</title>
+    <div class="submit">
+        <p>Spring</p>
+        <a href="/blogs/new">投稿</a>
+    </div>
 </head>
 
 <body>
+
+    <header>
+            <p><a href="/blogs">ホーム</a></p>
+            <p><a href="/blogs/article">プロフィール</a></p>
+            <!-- <li><a href="/new">新規作成</a></li>
+            <li><a href="/blogs">Blog</a></li> -->
+    </header>
+
+
     <h1>新しいブログ</h1>
 
-    <div class="post">
+    <form action="/blogs" method="post" class="post">
         <label for="title">タイトル</label><br>
         <input type="text" id="title" name="title" placeholder="ここにタイトルを記入"><br>
         <label for="title">本文</label><br>
-        <input type="text" id="title" name="title" placeholder="本文を記入"><br>
-        <button type="post">投稿</button>
-    </div>
+        <input type="text" id="notes" name="notes" placeholder="本文を記入"><br>
+        <button type="submit">投稿</button>
+    </form>
 
 
     <!-- <input type="text" name="blog"> -->
